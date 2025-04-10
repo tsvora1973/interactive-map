@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manuscript Digitization Workflow</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f9fafb;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: #1a56db;
+            margin-bottom: 30px;
+        }
+        .process-step {
+            margin-bottom: 24px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border: 2px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+        .process-step:hover {
+            border-color: #93c5fd;
+        }
+        .step-header {
+            padding: 16px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .step-title {
+            display: flex;
+            align-items: center;
+        }
+        .step-number {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #3b82f6;
+            color: white;
+            font-weight: bold;
+            margin-right: 12px;
+        }
+        .step-name {
+            font-size: 20px;
+            font-weight: 600;
+        }
+        .step-content {
+            padding: 0 16px 16px;
+            display: none;
+            border-top: 1px solid #e5e7eb;
+        }
+        .step-content.active {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .section {
+            margin-bottom: 16px;
+        }
+        .section-title {
+            font-weight: 600;
+            color: #2563eb;
+            margin-bottom: 8px;
+        }
+        ul {
+            margin: 8px 0;
+            padding-left: 24px;
+        }
+        li {
+            margin-bottom: 4px;
+            line-height: 1.5;
+        }
+        .connector {
+            height: 32px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .connector-line {
+            height: 100%;
+            width: 2px;
+            background-color: #60a5fa;
+        }
+        .chevron {
+            transition: transform 0.3s ease;
+            width: 24px;
+            height: 24px;
+        }
+        .rotated {
+            transform: rotate(180deg);
+        }
+        .active-step {
+            border-color: #3b82f6;
+            background-color: #eff6ff;
+        }
+        .active-step .step-number {
+            background-color: #1d4ed8;
+        }
+        .instructions {
+            background-color: #eff6ff;
+            padding: 16px;
+            border-radius: 8px;
+            margin-top: 16px;
+        }
+        .instructions h3 {
+            color: #2563eb;
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+        
+        @media (max-width: 768px) {
+            .step-content.active {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Manuscript Digitization Workflow</h1>
+        
+        <div id="process-map">
+            <!-- Steps will be dynamically inserted here -->
+        </div>
+        
+        <div class="instructions">
+            <h3>How to use this process map:</h3>
+            <ul>
+                <li>Click on any step to expand and see detailed information</li>
+                <li>Each step shows inputs, actions, outputs, and required resources</li>
+                <li>Steps are sequential, following the flow from top to bottom</li>
+                <li>This workflow covers the complete manuscript digitization process from initial assessment to final archiving</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const steps = [
+            {
+                id: 1,
+                title: "Preparation & Assessment",
+                inputs: ["Manuscript identified for processing"],
+                actions: [
+                    "Assign a unique identifier to the manuscript",
+                    "Document initial condition (binding, paper condition, fragility)",
+                    "Assess suitability for unbinding",
+                    "Prepare handling area and conservation tools"
+                ],
+                outputs: ["Assessed manuscript ready for unbinding", "Initial condition report"],
+                resources: ["Conservation expert", "Documentation tools", "Handling guidelines"]
+            },
+            {
+                id: 2,
+                title: "Manuscript Unbinding",
+                inputs: ["Assessed manuscript (bound)"],
+                actions: [
+                    "Document original binding structure",
+                    "Disassemble binding (remove threads, adhesives)",
+                    "Keep all pages in original sequence",
+                    "Handle pages with extreme care",
+                    "Store original binding components"
+                ],
+                outputs: ["Loose, sequentially ordered pages", "Separated binding components", "Binding documentation"],
+                resources: ["Conservation expert/technician", "Conservation tools", "Archival folders/trays"]
+            },
+            {
+                id: 3,
+                title: "High-Resolution Scanning",
+                inputs: ["Loose, sequentially ordered manuscript pages"],
+                actions: [
+                    "Configure scanner settings for archival quality",
+                    "Place each page onto scanner bed",
+                    "Scan each page (entire content, no distortion)",
+                    "Implement systematic file naming convention",
+                    "Perform visual quality check"
+                ],
+                outputs: ["High-quality digital image files (>20,000 pages across project)"],
+                resources: ["Bookeye 4 Scanner", "Trained scanning technician", "Quality checklist", "File naming guide"]
+            },
+            {
+                id: 4,
+                title: "Manuscript Re-binding",
+                inputs: ["Scanned, loose manuscript pages", "Original binding components", "Binding documentation"],
+                actions: [
+                    "Collate pages back into correct order",
+                    "Perform necessary minor paper repairs",
+                    "Re-bind using conservation techniques"
+                ],
+                outputs: ["Physically conserved and re-bound manuscript"],
+                resources: ["Conservation binder/expert", "Binding materials", "Conservation workshop"]
+            },
+            {
+                id: 5,
+                title: "Optical Character Recognition",
+                inputs: ["High-quality digital image files"],
+                actions: [
+                    "Prepare images for OCR processing",
+                    "Process images through OCR engine",
+                    "Generate raw text output for each page",
+                    "Organize text files with consistent naming"
+                ],
+                outputs: ["Raw, machine-readable digital text files"],
+                resources: ["Google Vision API", "Processing script/software", "Computing resources"]
+            },
+            {
+                id: 6,
+                title: "Proofreading - Round 1",
+                inputs: ["Raw digital text file", "Corresponding digital image file"],
+                actions: [
+                    "Expert 1 compares OCR text with scanned image",
+                    "Correct character misrecognitions",
+                    "Fix omissions or additions of text",
+                    "Address formatting and punctuation errors",
+                    "Save corrected text file (Version 1)"
+                ],
+                outputs: ["Corrected digital text file (Version 1)"],
+                resources: ["Expert 1 (MA Bengali - Calcutta/Jadavpur University)", "Proofreading software", "Guidelines"]
+            },
+            {
+                id: 7,
+                title: "Proofreading - Round 2",
+                inputs: ["Corrected text from Round 1", "Corresponding digital image file"],
+                actions: [
+                    "Expert 2 independently compares Round 1 text against image",
+                    "Identify and correct remaining errors",
+                    "Ensure consistency with project standards",
+                    "Save final double-proofread text file"
+                ],
+                outputs: ["Final double-proofread digital text file (Version 2)"],
+                resources: ["Expert 2 (Different MA Bengali graduate)", "Proofreading software", "Guidelines"]
+            },
+            {
+                id: 8,
+                title: "Finalization & Archiving",
+                inputs: ["Re-bound physical manuscript", "Digital image files", "Final proofread text files"],
+                actions: [
+                    "Perform final quality checks on digital files",
+                    "Create metadata records for physical and digital assets",
+                    "Store physical manuscript in archival conditions",
+                    "Archive digital files with preservation best practices",
+                    "Make digital assets accessible as required"
+                ],
+                outputs: ["Archived physical manuscript", "Archived and accessible digital surrogates"],
+                resources: ["Archivist/Digital Asset Manager", "Physical & digital storage", "Metadata standards", "Digital repository"]
+            }
+        ];
+
+        const processMap = document.getElementById('process-map');
+        
+        // Create and append step elements
+        steps.forEach((step, index) => {
+            // Create connector for steps after the first one
+            if (index > 0) {
+                const connector = document.createElement('div');
+                connector.className = 'connector';
+                connector.innerHTML = '<div class="connector-line"></div>';
+                processMap.appendChild(connector);
+            }
+            
+            // Create step container
+            const stepEl = document.createElement('div');
+            stepEl.className = 'process-step';
+            stepEl.id = `step-${step.id}`;
+            
+            // Create step header
+            const header = document.createElement('div');
+            header.className = 'step-header';
+            header.innerHTML = `
+                <div class="step-title">
+                    <div class="step-number">${step.id}</div>
+                    <div class="step-name">${step.title}</div>
+                </div>
+                <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+            `;
+            
+            // Create step content
+            const content = document.createElement('div');
+            content.className = 'step-content';
+            content.innerHTML = `
+                <div>
+                    <div class="section">
+                        <div class="section-title">Input:</div>
+                        <ul>
+                            ${step.inputs.map(input => `<li>${input}</li>`).join('')}
+                        </ul>
+                    </div>
+                    
+                    <div class="section">
+                        <div class="section-title">Actions:</div>
+                        <ul>
+                            ${step.actions.map(action => `<li>${action}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="section">
+                        <div class="section-title">Output:</div>
+                        <ul>
+                            ${step.outputs.map(output => `<li>${output}</li>`).join('')}
+                        </ul>
+                    </div>
+                    
+                    <div class="section">
+                        <div class="section-title">Resources/Tools:</div>
+                        <ul>
+                            ${step.resources.map(resource => `<li>${resource}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+            `;
+            
+            // Append header and content to step
+            stepEl.appendChild(header);
+            stepEl.appendChild(content);
+            
+            // Append step to process map
+            processMap.appendChild(stepEl);
+            
+            // Add click event
+            header.addEventListener('click', function() {
+                const isActive = stepEl.classList.contains('active-step');
+                
+                // Close all steps
+                document.querySelectorAll('.process-step').forEach(el => {
+                    el.classList.remove('active-step');
+                    el.querySelector('.step-content').classList.remove('active');
+                    el.querySelector('.chevron').classList.remove('rotated');
+                });
+                
+                // If the clicked step wasn't active, open it
+                if (!isActive) {
+                    stepEl.classList.add('active-step');
+                    content.classList.add('active');
+                    header.querySelector('.chevron').classList.add('rotated');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
